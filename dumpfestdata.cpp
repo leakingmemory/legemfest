@@ -3,23 +3,23 @@
 //
 
 #include "cppmain.h"
-#include "FestDeserializer.h"
-#include "Struct/Decoded/OppfLegemiddelMerkevare.h"
-#include "Struct/Decoded/OppfLegemiddelpakning.h"
-#include "Struct/Decoded/OppfLegemiddelVirkestoff.h"
-#include "Struct/Decoded/OppfHandelsvare.h"
-#include "Struct/Decoded/OppfLegemiddeldose.h"
-#include "Struct/Decoded/OppfVirkestoffMedStyrke.h"
-#include "Struct/Decoded/OppfVirkestoff.h"
-#include "Struct/Decoded/OppfKodeverk.h"
-#include "Struct/Decoded/OppfRefusjon.h"
-#include "Struct/Decoded/OppfVilkar.h"
-#include "Struct/Decoded/OppfVarselSlv.h"
-#include "Struct/Decoded/OppfByttegruppe.h"
-#include "Struct/Decoded/OppfInteraksjon.h"
-#include "Struct/Decoded/OppfInteraksjonIkkeVurdert.h"
-#include "Struct/Decoded/OppfStrDosering.h"
-#include "FestVectors.h"
+#include <medfest/FestDeserializer.h>
+#include <medfest/Struct/Decoded/OppfLegemiddelMerkevare.h>
+#include <medfest/Struct/Decoded/OppfLegemiddelpakning.h>
+#include <medfest/Struct/Decoded/OppfLegemiddelVirkestoff.h>
+#include <medfest/Struct/Decoded/OppfHandelsvare.h>
+#include <medfest/Struct/Decoded/OppfLegemiddeldose.h>
+#include <medfest/Struct/Decoded/OppfVirkestoffMedStyrke.h>
+#include <medfest/Struct/Decoded/OppfVirkestoff.h>
+#include <medfest/Struct/Decoded/OppfKodeverk.h>
+#include <medfest/Struct/Decoded/OppfRefusjon.h>
+#include <medfest/Struct/Decoded/OppfVilkar.h>
+#include <medfest/Struct/Decoded/OppfVarselSlv.h>
+#include <medfest/Struct/Decoded/OppfByttegruppe.h>
+#include <medfest/Struct/Decoded/OppfInteraksjon.h>
+#include <medfest/Struct/Decoded/OppfInteraksjonIkkeVurdert.h>
+#include <medfest/Struct/Decoded/OppfStrDosering.h>
+#include <medfest/FestVectors.h>
 
 int usage(const std::string &cmd) {
     std::cerr << "Usage:\n " << cmd << " <fest.bin>\n";

@@ -3,59 +3,25 @@ project(Legemfest)
 
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(PkgConfig)
-
-pkg_check_modules(libzip REQUIRED libzip)
-
-find_package(expat REQUIRED)
-
-find_package(Boost REQUIRED)
-
-INCLUDE_DIRECTORIES ( ${EXPAT_INCLUDE_DIRS} )
-
-enable_testing()
-
-add_subdirectory(Fest)
-add_subdirectory(Struct/Decoded)
-add_subdirectory(Struct/Packed)
-add_subdirectory(Test/Struct/Packed)
-
-add_executable(decodefest cppmain.cpp cppmain.h decodefest.cpp FestZip.cpp FestZip.h libzip_zip.cpp libzip_zip.h
-        libzip_file.cpp libzip_file.h exttype_zip_file.h FestObjectStream.cpp FestObjectStream.h
-        XMLParser.cpp XMLParser.h FestSerializer.cpp FestSerializer.h)
-
-include_directories(decodefest ${libzip_INCLUDE_DIRS} )
+add_executable(decodefest cppmain.cpp cppmain.h decodefest.cpp)
 
 IF(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
    target_link_libraries(decodefest -L/usr/local/lib)
 ENDIF(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
 
-target_link_libraries(decodefest fest)
-target_link_libraries(decodefest decoded)
-target_link_libraries(decodefest packed)
-target_link_libraries(decodefest -lexpat)
-target_link_libraries(decodefest ${libzip_LIBRARIES})
+target_link_libraries(decodefest -lmedfest)
 
-add_executable(dumpfestdata cppmain.cpp cppmain.h dumpfestdata.cpp FestDeserializer.cpp FestDeserializer.h
-        FestVectors.cpp FestVectors.h)
+add_executable(dumpfestdata cppmain.cpp cppmain.h dumpfestdata.cpp)
+target_link_libraries(dumpfestdata -lmedfest)
 
-target_link_libraries(dumpfestdata packed)
-target_link_libraries(dumpfestdata decoded)
+add_executable(copyfestdata copyfestdata.cpp cppmain.cpp cppmain.h)
+target_link_libraries(copyfestdata -lmedfest)
 
-add_executable(copyfestdata copyfestdata.cpp cppmain.cpp cppmain.h FestDeserializer.cpp FestDeserializer.h
-        FestDeserializer_Preload.cpp FestSerializer.cpp FestSerializer.h FestVectors.cpp FestVectors.h)
+add_executable(addtofest addtofest.cpp cppmain.cpp cppmain.h)
+target_link_libraries(addtofest -lmedfest)
 
-target_link_libraries(copyfestdata packed)
-target_link_libraries(copyfestdata decoded)
-target_link_libraries(copyfestdata fest)
-
-add_executable(addtofest addtofest.cpp cppmain.cpp cppmain.h FestDeserializer.cpp FestDeserializer.h
-        FestDeserializer_Preload.cpp FestSerializer.cpp FestSerializer.h FestVectors.cpp FestVectors.h
-        FestZip.cpp FestZip.h libzip_zip.cpp libzip_zip.h libzip_file.cpp libzip_file.h exttype_zip_file.h
-        FestObjectStream.cpp FestObjectStream.h XMLParser.cpp XMLParser.h)
-
-target_link_libraries(addtofest packed)
-target_link_libraries(addtofest decoded)
-target_link_libraries(addtofest fest)
-target_link_libraries(addtofest -lexpat)
-target_link_libraries(addtofest ${libzip_LIBRARIES})
+install(TARGETS decodefest dumpfestdata copyfestdata addtofest
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+)

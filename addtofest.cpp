@@ -2,9 +2,9 @@
 // Created by sigsegv on 2/19/23.
 //
 
-#include "FestSerializer.h"
-#include "FestDeserializer.h"
-#include "FestZip.h"
+#include <medfest/FestSerializer.h>
+#include <medfest/FestDeserializer.h>
+#include <medfest/FestZip.h>
 
 int usage(const std::string &cmd) {
     std::cerr << "Usage:\n " << cmd << " <src-db.bin> <fest1.zip> ... <dst-db.bin>\n";
@@ -38,4 +38,5 @@ int cppmain(const std::string &cmd, const std::vector<std::string> &args) {
         }
     }
     festSerializer.Write();
+    return 0;
 }

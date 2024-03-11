@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include "cppmain.h"
-#include "FestZip.h"
-#include "FestSerializer.h"
+#include <medfest/FestZip.h>
+#include <medfest/FestSerializer.h>
 
 int DecodeFest(const std::string &zipname, const std::string &outputFile) {
     FestZip festzip{zipname};
