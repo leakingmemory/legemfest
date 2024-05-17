@@ -14,6 +14,9 @@ target_link_libraries(decodefest -lmedfest)
 add_executable(dumpfestdata cppmain.cpp cppmain.h dumpfestdata.cpp)
 target_link_libraries(dumpfestdata -lmedfest)
 
+add_executable(checkfest cppmain.cpp cppmain.h checkfest.cpp)
+target_link_libraries(checkfest -lmedfest)
+
 add_executable(copyfestdata copyfestdata.cpp cppmain.cpp cppmain.h)
 target_link_libraries(copyfestdata -lmedfest)
 
