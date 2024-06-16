@@ -113,10 +113,12 @@ int cppmain(const std::string &cmd, const std::vector<std::string> &args) {
     std::cout << "Kodeverk element list storage dump:\n";
     for (const auto &pelement : festDeserializer.GetElement()) {
         auto element = festDeserializer.Unpack(pelement);
-        auto term = element.GetTerm();
-        auto sprak = term.GetSprak();
-        std::cout << " " << element.GetId() << " " << element.GetKode() << " " << sprak.GetDistinguishedName()
-                  << " " << term.GetTerm() << " " << term.GetBeskrivelseTerm() << "\n";
+        auto termList = element.GetTermList();
+        std::cout << " " << element.GetId() << " " << element.GetKode() << " " << "\n";
+        for (const auto &term : termList) {
+            auto sprak = term.GetSprak();
+            std::cout << " - " << sprak.GetDistinguishedName() << " " << term.GetTerm() << " " << term.GetBeskrivelseTerm() << "\n";
+        }
     }
     std::cout << "Ref refusjonsvilkar list storage dump:\n";
     for (const auto &pref : festDeserializer.GetRefRefusjonsvilkar()) {
@@ -298,10 +300,12 @@ int cppmain(const std::string &cmd, const std::vector<std::string> &args) {
                   << info.GetId() << " " << info.GetKortnavn() << " " << info.GetBetegnelse() << " "
                   << info.GetAnsvarligUtgiver() << "\n";
         for (const auto &element : oppf.GetElement()) {
-            auto term = element.GetTerm();
-            auto sprak = term.GetSprak();
-            std::cout << "  - " << element.GetId() << " " << element.GetKode() << " " << sprak.GetDistinguishedName()
-                      << " " << term.GetTerm() << " " << term.GetBeskrivelseTerm() << "\n";
+            auto termList = element.GetTermList();
+            std::cout << "  - " << element.GetId() << " " << element.GetKode() << "\n";
+            for (const auto &term : termList) {
+                auto sprak = term.GetSprak();
+                std::cout << "  - " << sprak.GetDistinguishedName() << " " << term.GetTerm() << " " << term.GetBeskrivelseTerm() << "\n";
+            }
         }
     });
     std::cout << "Refusjon:\n";
