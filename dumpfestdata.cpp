@@ -316,21 +316,23 @@ int cppmain(const std::string &cmd, const std::vector<std::string> &args) {
                   << (refusjonshjemmel.GetKreverVedtak() ? " krever vedtak: " : "")
                   << (refusjonshjemmel.GetKreverVarekobling() ? "krever varekobling: " : "")
                   << refusjonshjemmel.GetRefusjonshjemmel().GetDistinguishedName() << "\n";
-        auto refusjonsgruppe = refusjonshjemmel.GetRefusjonsgruppe();
-        std::cout << "  " << refusjonsgruppe.GetAtc().GetValue() << " " << refusjonsgruppe.GetId() << " "
-                  << refusjonsgruppe.GetGruppeNr().GetValue() << ": " << refusjonsgruppe.GetRefusjonsberettigetBruk()
-                  << "\n";
-        for (const auto &refVilkar : refusjonsgruppe.GetRefVilkar()) {
-            std::cout << "    - " << refVilkar << "\n";
-        }
-        for (const auto &refusjonskode : refusjonsgruppe.GetRefusjonskode()) {
-            std::cout << "  * " << refusjonskode.GetGyldigFraDato() << " " << refusjonskode.GetForskrivesTilDato() << " "
-                      << refusjonskode.GetRefusjonskode().GetDistinguishedName() << "\n";
-            for (const auto &term : refusjonskode.GetUnderterm()) {
-                std::cout << "    - " << term << "\n";
+        auto refusjonsgruppeList = refusjonshjemmel.GetRefusjonsgruppeList();
+        for (const auto &refusjonsgruppe : refusjonsgruppeList) {
+            std::cout << "  - " << refusjonsgruppe.GetAtc().GetValue() << " " << refusjonsgruppe.GetId() << " "
+                      << refusjonsgruppe.GetGruppeNr().GetValue() << ": " << refusjonsgruppe.GetRefusjonsberettigetBruk()
+                      << "\n";
+            for (const auto &refVilkar : refusjonsgruppe.GetRefVilkar()) {
+                std::cout << "      - " << refVilkar << "\n";
             }
-            for (const auto &refRefusjonsvilkar : refusjonskode.GetRefusjonsvilkar()) {
-                std::cout << "   - " << refRefusjonsvilkar.GetId() << " " << refRefusjonsvilkar.GetFraDato() << "\n";
+            for (const auto &refusjonskode : refusjonsgruppe.GetRefusjonskode()) {
+                std::cout << "    * " << refusjonskode.GetGyldigFraDato() << " " << refusjonskode.GetForskrivesTilDato() << " "
+                          << refusjonskode.GetRefusjonskode().GetDistinguishedName() << "\n";
+                for (const auto &term : refusjonskode.GetUnderterm()) {
+                    std::cout << "      - " << term << "\n";
+                }
+                for (const auto &refRefusjonsvilkar : refusjonskode.GetRefusjonsvilkar()) {
+                    std::cout << "     - " << refRefusjonsvilkar.GetId() << " " << refRefusjonsvilkar.GetFraDato() << "\n";
+                }
             }
         }
     });
